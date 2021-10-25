@@ -1,0 +1,161 @@
+@use "./colors" as c;
+@import "bootstrap";
+
+// Test guidelines
+* {
+  // Avoid text selection
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  // Prevent light blue background in autocompleted inputs
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+  }
+
+  // Guides
+  // outline: 2px solid blue;
+}
+
+input,
+input:before,
+input:after {
+  -webkit-user-select: initial;
+  -khtml-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  #root {
+    height: 100%;
+  }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+}
+
+a {
+  color: c.$secondaryColor;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  font-weight: normal;
+  color: inherit;
+}
+
+.nav-link:visited {
+  color: c.$lightColor;
+}
+
+.fnt-smallest:visited {
+  color: c.$secondaryColor;
+}
+
+button {
+  border: none;
+  background: unset;
+}
+
+button:active {
+  outline: 0;
+}
+
+// Dropdown items
+.dropdown-menu {
+  @extend .dropdown-menu;
+  background-color: c.$secondaryColor;
+}
+
+.custom-dropdown-item {
+  @extend .dropdown-item;
+  color: c.$lightColor !important;
+}
+
+.custom-dropdown-item:hover {
+  background-color: rgb(250, 250, 250, 0.2) !important;
+  color: c.$lightColor !important;
+}
+
+.dropdown-menu li {
+  position: relative;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               Global classes                               */
+/* -------------------------------------------------------------------------- */
+.h-fit-content {
+  height: fit-content;
+}
+.w-fit-content {
+  width: fit-content;
+}
+
+.light-hr {
+  border: 1px solid white !important;
+  margin: 5px 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/*                               Global effects                               */
+/* -------------------------------------------------------------------------- */
+.fx-stroke {
+  border: 2px solid white;
+}
+
+.fx-rounded {
+  border-radius: 8px;
+}
+
+.fx-blur {
+  background: rgba(250, 250, 250, 0.2);
+  backdrop-filter: blur(40px);
+}
+
+.header-links {
+  color: c.$lightColor !important;
+}
+.header-links:link,
+.header-links:visited {
+  color: c.$lightColor !important;
+}
+
+html {
+  overflow: hidden;
+}
