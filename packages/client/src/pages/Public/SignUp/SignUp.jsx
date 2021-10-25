@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 // import { useDispatch } from "react-redux";
 
-import signInSchema from "./sign-in-schema";
+import signUpSchema from "./sign-up-schema";
 // import { createClient, signInUserData } from "../../../api/account-api";
 import {
   signIn,
@@ -41,7 +41,7 @@ export default function SignIn() {
       email: "",
       password: "",
     },
-    validationSchema: signInSchema,
+    validationSchema: signUpSchema,
     onSubmit: async (signInState) => {
       setLoading(true);
 
@@ -79,52 +79,87 @@ export default function SignIn() {
         )} */}
 
         <div className="col col-12 col-lg-6">
-          <h1 className="fnt-page-title mb-5">Sign in:</h1>
+          <h1 className="fnt-page-title mb-5">Sign up:</h1>
           <form onSubmit={formik.handleSubmit} className="row">
             <Input
-              label="email"
-              type="email"
+              classNames="col-12 col-md-6"
+              label="First Name"
+              id="firstName"
+              type="text"
+              placeholder="First name"
+              handleChange={formik.handleChange}
+              handleBlur={formik.handleBlur}
+              value={formik.values.firstName}
+              errorMessage={formik.errors.firstName}
+              hasErrorMessage={formik.touched.firstName}
+              disabled={loading}
+            />
+            <Input
+              classNames="col-12 col-md-6"
+              label="Last Name"
+              id="lastName"
+              type="text"
+              placeholder="Last name"
+              handleChange={formik.handleChange}
+              handleBlur={formik.handleBlur}
+              value={formik.values.lastName}
+              errorMessage={formik.errors.lastName}
+              hasErrorMessage={formik.touched.lastName}
+              disabled={loading.isLoading || loading.isError}
+            />
+            <Input
+              classNames="col-12 col-md-6"
+              label="Email"
               id="email"
-              name="email"
+              type="email"
               placeholder="name@example.com"
               handleChange={formik.handleChange}
               handleBlur={formik.handleBlur}
               value={formik.values.email}
               errorMessage={formik.errors.email}
               hasErrorMessage={formik.touched.email}
-              classNames="mb-1"
-              disabled={loading}
+              disabled={loading.isLoading || loading.isError}
             />
+
             <Input
-              label="password"
-              type="password"
+              classNames="col-12 col-md-6"
+              label="Password"
               id="password"
-              name="password"
+              type="password"
               placeholder="Password"
-              hasForgotPassword
               handleChange={formik.handleChange}
               handleBlur={formik.handleBlur}
               value={formik.values.password}
               errorMessage={formik.errors.password}
               hasErrorMessage={formik.touched.password}
-              classNames="mb-4"
-              disabled={loading}
+              disabled={loading.isLoading || loading.isError}
             />
-            <div className="form-footer-wrapper">
-              <div className="fnt-caption mt-4 row d-flex justify-content-between">
-                <div className="d-flex justify-content-end col col-12 col-md-7 p-0">
-                  <div className="p-2">
-                    <Button submitButton>Log in</Button>
-                  </div>
+
+            <Input
+              classNames="col-12 col-md-6"
+              label="Confirm Password"
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm password"
+              handleChange={formik.handleChange}
+              handleBlur={formik.handleBlur}
+              value={formik.values.confirmPassword}
+              errorMessage={formik.errors.confirmPassword}
+              hasErrorMessage={formik.touched.confirmPassword}
+              disabled={loading.isLoading || loading.isError}
+            />
+            <div className="form-footer-wrapper d-flex row mt-3">
+              <div className="fnt-caption col col-6">
+                Already have an account? <br /> Please,{" "}
+                <Link to={PUBLIC.SIGN_IN}>sign in.</Link>
+              </div>
+              <div className="d-flex justify-content-end col col-6 text-end p-0">
+                <div className="p-2">
+                  <Button type="submit">Sign Up</Button>
                 </div>
               </div>
             </div>
           </form>
-          <div className="fnt-caption mt-4 pe-4 text-end">
-            First time in WaveApp?
-            <br />
-            Please, <Link to={PUBLIC.SIGN_UP}>sign up.</Link>
-          </div>
         </div>
       </div>
     </Layout>

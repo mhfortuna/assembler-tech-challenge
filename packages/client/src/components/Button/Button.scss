@@ -23,16 +23,16 @@
 
 .positive-primary-btn,
 .positive-secondary-btn:hover {
-  color: c.$secondaryColor;
+  color: c.$primaryColor;
   background: c.$lightColor;
-  border: 2px solid c.$secondaryColor;
+  border: 2px solid c.$primaryColor;
 }
 
 .positive-primary-btn:hover,
 .positive-secondary-btn {
   color: c.$lightColor;
-  background: c.$secondaryColor;
-  border: 2px solid c.$secondaryColor;
+  background: c.$primaryColor;
+  border: 2px solid c.$primaryColor;
 }
 
 .positive-primary-btn:focus,
@@ -49,7 +49,7 @@
 
 .negative-primary-btn:hover,
 .negative-secondary-btn {
-  color: c.$secondaryColor;
+  color: c.$primaryColor;
   background: c.$lightColor;
   border: 2px solid c.$lightColor;
 }

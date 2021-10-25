@@ -6,6 +6,8 @@ const { REACT_APP_BACKEND_API_ROUTE } = process.env;
 
 export const PUBLIC = {
   HOME: "/",
+  SIGN_UP: "/sign-up",
+  SIGN_IN: "/sign-in",
 };
 
 // API

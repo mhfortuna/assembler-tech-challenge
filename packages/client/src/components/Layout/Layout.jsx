@@ -9,7 +9,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="clr-light p-4">{children}</main>
       <Footer />
     </>
   );

@@ -14,7 +14,6 @@ export default function Input({
   id = "input-01",
   type = "",
   classNames,
-  isNegative = false,
   fullWidth = false,
   placeholder = "",
   inputFileText = "Choose your file",
@@ -40,25 +39,15 @@ export default function Input({
 
   let labelClassNames = "fnt-label-bold p-0 mb-2 ";
   let inputClassNames = "fnt-input-light fx-rounded ps-3 ";
-  let uploadClassNames =
+  const uploadClassNames =
     "form-input positive-custom-upload-input fx-rounded file-input-wrapper ps-0";
 
   if (type === "file") {
     inputClassNames += "upload-input m-0 ";
-    if (!isNegative) {
-      uploadClassNames += "positive-custom-upload-input truncate ";
-    } else {
-      uploadClassNames += "negative-custom-upload-input truncate ";
-    }
   }
 
-  if (isNegative) {
-    labelClassNames += "negative-label";
-    inputClassNames += "negative-input";
-  } else {
-    labelClassNames += "positive-label";
-    inputClassNames += "positive-input";
-  }
+  labelClassNames += "positive-label";
+  inputClassNames += "positive-input";
 
   if (fullWidth) {
     inputClassNames += " w-100";
@@ -129,7 +118,7 @@ export default function Input({
                   }}
                 >
                   <FaSearch />
-                </IconContext.Provider>{" "}
+                </IconContext.Provider>
               </Button>
             </div>
           )}

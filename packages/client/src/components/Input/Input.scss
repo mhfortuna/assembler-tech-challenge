@@ -21,7 +21,7 @@ label {
 }
 
 .positive-label {
-  color: c.$secondaryColor;
+  color: c.$primaryColor;
 }
 
 .negative-label {
@@ -29,7 +29,7 @@ label {
 }
 
 .positive-input {
-  color: c.$secondaryColor;
+  color: c.$primaryColor;
   background: "white";
   border: 2px solid c.$grayColor;
 }
