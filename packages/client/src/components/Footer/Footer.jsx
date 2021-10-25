@@ -2,28 +2,25 @@ import React from "react";
 
 import "./Footer.scss";
 
-const Footer = ({ darkBackground, ...props }) => {
-  const footerClasses = "px-3 px-sm-5 h-60 d-flex align-items-center";
+const Footer = () => {
   return (
-    <footer
-      className={
-        darkBackground
-          ? `${footerClasses} fx-dark-footer`
-          : `${footerClasses} fx-blur`
-      }
-      {...props}
-    >
-      <div className="row m-0 w-100 d-flex align-items-center">
-        <div className="col p-0">
-          <p className="fnt-caption m-0 fnt-white">WebApp &copy; 2021</p>
+    <div className="container">
+      <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div className="col-md-4 d-flex align-items-center">
+          <a
+            href="/"
+            className="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1"
+          >
+            Home
+          </a>
+          <span className="text-muted">© 2021 Company, Inc</span>
         </div>
-        <div className="col p-0">
-          <p className="fnt-caption text-end m-0 fnt-white">
-            Developed with love by Team Rocket
-          </p>
-        </div>
-      </div>
-    </footer>
+
+        <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
+          <li className="ms-3">prueba</li>
+        </ul>
+      </footer>
+    </div>
   );
 };
 

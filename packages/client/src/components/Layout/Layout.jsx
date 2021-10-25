@@ -9,10 +9,7 @@ function Layout({ children }) {
   return (
     <>
       <Header />
-      <main>
-        <div className="thumbnail-background" />
-        <div className="thumbnail-childrens">{children}</div>
-      </main>
+      <main>{children}</main>
       <Footer />
     </>
   );
