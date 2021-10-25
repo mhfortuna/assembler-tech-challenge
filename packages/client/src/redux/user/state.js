@@ -1,9 +1,10 @@
 const initialState = {
   firstName: "",
-  isRegistering: false,
+  lastName: "",
   isLogged: false,
   mongoId: "",
-  googleProvider: false,
+  // isRegistering: false,
+  // googleProvider: false,
 };
 
 export default initialState;

@@ -15,4 +15,6 @@ export const PUBLIC = {
 export const API = {
   MAIN: REACT_APP_BACKEND_API_ROUTE,
   AUTH: "/auth",
+  REGISTER: "/register",
+  LOGIN: "/login",
 };

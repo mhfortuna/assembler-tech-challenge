@@ -19,7 +19,6 @@ if (!firebase.apps.length) {
     REACT_APP_FB_STORAGE_BUCKET,
     REACT_APP_FB_MSG_SENDER_ID,
     REACT_APP_FB_APP_ID,
-    REACT_APP_FB_MEASUREMENT_ID,
   } = process.env;
   const firebaseConfig = {
     apiKey: REACT_APP_FB_API_KEY,
@@ -28,7 +27,6 @@ if (!firebase.apps.length) {
     storageBucket: REACT_APP_FB_STORAGE_BUCKET,
     messagingSenderId: REACT_APP_FB_MSG_SENDER_ID,
     appId: REACT_APP_FB_APP_ID,
-    measurementId: REACT_APP_FB_MEASUREMENT_ID,
   };
 
   firebase.initializeApp(firebaseConfig);

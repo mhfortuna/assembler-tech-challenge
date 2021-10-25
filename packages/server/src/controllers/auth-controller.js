@@ -25,7 +25,7 @@ async function signUp(req, res, next) {
 
       return res
         .status(200)
-        .send({ message: "Successfully signed up", userId: newUser._id });
+        .send({ message: "Successfully signed up", data: newUser });
     }
 
     res

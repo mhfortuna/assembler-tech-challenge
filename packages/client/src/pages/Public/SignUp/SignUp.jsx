@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import signUpSchema from "./sign-up-schema";
-// import { createClient, signInUserData } from "../../../api/account-api";
+import { createClient } from "../../../api/auth-api";
 import {
-  signIn,
-  signOut,
+  signUpWithEmailAndPassword,
+  // signOut,
   // setCredentialsPersistance,
 } from "../../../services/auth";
 
@@ -20,46 +20,42 @@ import Layout from "../../../components/Layout";
 
 import { PUBLIC } from "../../../constants/routes";
 import Input from "../../../components/Input/Input";
+import { logIn } from "../../../redux/user/actions";
 
-export default function SignIn() {
+export default function SignUp() {
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
   // const [saveCredentials, setSaveCredentials] = useState(false);
-  // const dispatch = useDispatch();
-  // const credentialsCheckbox = useRef();
-
-  // const handleSaveCredentials = () => {
-  //   if (credentialsCheckbox.current.checked) {
-  //     setSaveCredentials(true);
-  //   } else {
-  //     setSaveCredentials(false);
-  //   }
-  //   setCredentialsPersistance(credentialsCheckbox);
-  // };
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
     validationSchema: signUpSchema,
-    onSubmit: async (signInState) => {
+    onSubmit: async (signUpState) => {
       setLoading(true);
 
-      // Set save credentials
-      // handleSaveCredentials();
       try {
-        const signInResponse = await signIn(
-          signInState.email,
-          signInState.password,
+        await signUpWithEmailAndPassword(
+          signUpState.email,
+          signUpState.password,
         );
-        const token = signInResponse.user.multiFactor.user.accessToken;
-        // await signInUserData(token);
-        console.log(token);
-
-        if (!signInResponse.user.multiFactor.user.emailVerified) {
-          signOut();
-          toast("Please verify your email!", { type: "error" });
-        }
+        // const token = signInResponse.user.multiFactor.user.accessToken;
+        const dbData = await createClient({
+          firstName: signUpState.firstName,
+          lastName: signUpState.lastName,
+        });
+        // console.log(token);
+        toast("Sign up successful", { type: "success" });
+        console.log(dbData);
+        const { firstName, lastName, _id: mongoId } = dbData.data.data;
+        dispatch(logIn({ firstName, lastName, isLogged: true, mongoId }));
+        history.push(PUBLIC.HOME);
       } catch (error) {
         setLoading(false);
         toast(error.message, { type: "error" });

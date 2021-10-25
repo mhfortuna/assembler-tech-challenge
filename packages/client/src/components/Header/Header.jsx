@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { PUBLIC } from "../../constants/routes";
 // import { useSelector, useDispatch } from "react-redux";
 // import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 // import { PUBLIC } from "../../constants/routes";
@@ -49,9 +51,9 @@ function Header() {
             <button type="button" className="btn btn-outline-light me-2">
               Login
             </button>
-            <button type="button" className="btn btn-warning">
+            <Link to={PUBLIC.SIGN_UP} className="btn btn-warning">
               Sign-up
-            </button>
+            </Link>
           </div>
         </div>
       </div>

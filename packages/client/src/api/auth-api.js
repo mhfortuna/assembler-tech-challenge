@@ -9,7 +9,9 @@ export function makeAuthApi() {
   });
 }
 
-export function signInUserData(token, api = makeAuthApi()) {
+export async function signInUserData(api = makeAuthApi()) {
+  const token = await getCurrentUserToken();
+
   return api.get(API.LOGIN, {
     headers: { Authorization: `Bearer ${token}` },
   });
