@@ -12,9 +12,9 @@ async function signUp(req, res, next) {
     const data = await db.User.findOne({ firebaseId }, { _id: 1 });
 
     if (!data) {
-      Object.keys(req.body).forEach(
-        (k) => req.body[k] == "" && delete req.body[k],
-      );
+      // Object.keys(req.body).forEach(
+      //   (k) => req.body[k] == "" && delete req.body[k],
+      // );
 
       const newUser = await db.User.create({
         firebaseId,

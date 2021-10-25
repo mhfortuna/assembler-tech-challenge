@@ -3,31 +3,24 @@ import { getCurrentUserToken } from "../services/auth";
 
 const axios = require("axios").default;
 
-export function makeAccountApi() {
+export function makeAuthApi() {
   return axios.create({
-    baseURL: `${API.MAIN}${API.ACCOUNT}`,
+    baseURL: `${API.MAIN}${API.AUTH}`,
   });
 }
 
-export function makeRegisterApi() {
-  return axios.create({
-    baseURL: `${API.MAIN}${API.REGISTER}`,
-  });
-}
-
-export function signInUserData(token) {
-  return axios.get(`${API.MAIN}${API.AUTHENTICATE}`, {
+export function signInUserData(token, api = makeAuthApi()) {
+  return api.get(API.LOGIN, {
     headers: { Authorization: `Bearer ${token}` },
   });
 }
 
-export async function createClient(file = {}, api = makeRegisterApi()) {
+export async function createClient(data = {}, api = makeAuthApi()) {
   const token = await getCurrentUserToken();
 
-  return api.post(``, file, {
+  return api.post(API.REGISTER, data, {
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": `multipart/form-data"`,
     },
   });
 }
