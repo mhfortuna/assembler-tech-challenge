@@ -10,6 +10,7 @@ export const PUBLIC = {
   SIGN_IN: "/sign-in",
   CONTENT: "/content",
   CATEGORY: "/category",
+  UPLOAD: "/upload",
 };
 
 // API
@@ -19,6 +20,6 @@ export const API = {
   AUTH: "/auth",
   REGISTER: "/register",
   LOGIN: "/login",
-  GIF: "/gif",
-  GIPHY: "/giphy",
+  CONTENT: "/content",
+  CATEGORIES: "/category",
 };
