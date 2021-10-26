@@ -1,53 +1,49 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { Scrollbars } from "react-custom-scrollbars";
-import { onAuthStateChanged } from "./services/auth";
-// import { logIn } from "./redux/user/actions";
-// import { signInUserData } from "./api/account-api";
-// import { on } from "./utils/customEvents";
+import { getCurrentUser, onAuthStateChanged } from "./services/auth";
+import { logIn } from "./redux/user/actions";
+import { signInUserData } from "./api/auth-api";
+import { on } from "./utils/customEvents";
 
 import RouterComponent from "./components/Router";
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const userState = useSelector((state) => state.user);
+  // const userState = useSelector((state) => state.user);
 
-  // async function handleExistingUser(firebaseUser) {
-  //   const token = firebaseUser.multiFactor.user.accessToken;
-  //   const dbUser = (await signInUserData(token)).data.data;
+  async function handleExistingUser() {
+    const dbUser = (await signInUserData()).data.data;
 
-  //   dispatch(
-  //     logIn({
-  //       firstName: dbUser.firstName,
-  //       profilePicture: dbUser.profilePicture || "",
-  //       isLogged: true,
-  //       mongoId: dbUser._id,
-  //       googleProvider:
-  //         firebaseUser.multiFactor.user.providerData[0].providerId ===
-  //         "google.com",
-  //     }),
-  //   );
-  //   setLoading(false);
-  // }
+    dispatch(
+      logIn({
+        firstName: dbUser.firstName,
+        lastName: dbUser.lastName,
+        isLogged: true,
+        mongoId: dbUser._id,
+      }),
+    );
+    setLoading(false);
+  }
 
   useEffect(() => {
     onAuthStateChanged((user) => {
-      if (user && user.emailVerified && !userState.isRegistering) {
-        // handleExistingUser(user);
+      if (user) {
+        handleExistingUser();
       } else {
         setLoading(false);
       }
     });
   }, []);
 
-  // useEffect(() => {
-  //   on("setLoginReduxState", () => {
-  //     const firebaseUser = getCurrentUser();
-  //     handleExistingUser(firebaseUser);
-  //   });
-  // });
+  useEffect(() => {
+    on("setLoginReduxState", () => {
+      const firebaseUser = getCurrentUser();
+      handleExistingUser(firebaseUser);
+    });
+  });
 
   return (
     <Scrollbars
