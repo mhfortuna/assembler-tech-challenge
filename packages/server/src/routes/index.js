@@ -1,9 +1,9 @@
 const { authRouter } = require("./auth-routes");
-const { gifRouter } = require("./gif-routes");
+const { contentRouter } = require("./content-routes");
 const { categoryRouter } = require("./category-routes");
 
 module.exports = {
   authRouter,
-  gifRouter,
+  contentRouter,
   categoryRouter,
 };

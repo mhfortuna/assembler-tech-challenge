@@ -2,7 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
-const { authRouter, gifRouter, categoryRouter } = require("./routes");
+const { authRouter, contentRouter, categoryRouter } = require("./routes");
 
 // const {
 // } = require("./routes");
@@ -17,7 +17,7 @@ app.use(helmet());
 app.use(cors());
 
 app.use("/api/auth", authRouter);
-app.use("/api/gif", gifRouter);
+app.use("/api/content", contentRouter);
 app.use("/api/category", categoryRouter);
 
 module.exports = app;

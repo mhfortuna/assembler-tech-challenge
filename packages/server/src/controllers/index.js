@@ -1,9 +1,9 @@
 const authController = require("./auth-controller");
-const gifController = require("./gif-controller");
+const contentController = require("./content-controller");
 const categoryController = require("./category-controller");
 
 module.exports = {
   authController,
-  gifController,
+  contentController,
   categoryController,
 };
