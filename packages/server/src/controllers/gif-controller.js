@@ -1,4 +1,5 @@
 const db = require("../models");
+const { fetchPopularGifs } = require("../services/giphy/giphy-api");
 
 async function get(req, res, next) {
   try {
@@ -6,15 +7,29 @@ async function get(req, res, next) {
     // This should be used to get most popular gifs
     // const { firebaseId } = req.user;
 
-    const data = await db.Content.find(
+    let data = await db.Content.find(
       {},
-      { type: 1, url: 1, userId: 1, categoryId: 1 },
+      { type: 1, url: 1, userId: 1, categoryId: 1, title: 1 },
     )
       .populate({ path: "categoryId", select: "name" })
       .skip(Number(page) * Number(limit))
-      .limit(Number(limit));
+      .limit(Number(limit))
+      .lean();
+    data = data.map((obj) => ({ ...obj, isGiphy: false }));
+    // console.log(data);
 
-    res.status(200).send({ message: "Successfully signed in", data: data });
+    // console.log("data", data.length);
+    if (data.length < Number(limit)) {
+      let {
+        data: { data: giphyArray },
+      } = await fetchPopularGifs(Number(limit) - data.length);
+      giphyArray = giphyArray.map((obj) => ({ ...obj, isGiphy: true }));
+      // console.log(giphyArray);
+
+      data = [...data, ...giphyArray];
+    }
+
+    res.status(200).send({ data: data });
   } catch (error) {
     res.status(401).send({ error: error.message });
     next(error);

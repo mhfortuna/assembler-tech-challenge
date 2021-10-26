@@ -8,6 +8,8 @@ export const PUBLIC = {
   HOME: "/",
   SIGN_UP: "/sign-up",
   SIGN_IN: "/sign-in",
+  CONTENT: "/content",
+  CATEGORY: "/category",
 };
 
 // API
@@ -17,4 +19,6 @@ export const API = {
   AUTH: "/auth",
   REGISTER: "/register",
   LOGIN: "/login",
+  GIF: "/gif",
+  GIPHY: "/giphy",
 };
