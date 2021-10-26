@@ -51,7 +51,6 @@ export default function SignUp() {
           lastName: signUpState.lastName,
         });
         // console.log(token);
-        toast("Sign up successful", { type: "success" });
         console.log(dbData);
         const { firstName, lastName, _id: mongoId } = dbData.data.data;
         dispatch(logIn({ firstName, lastName, isLogged: true, mongoId }));

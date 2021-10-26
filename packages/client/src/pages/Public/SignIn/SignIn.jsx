@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import signInSchema from "./sign-in-schema";
-// import { createClient, signInUserData } from "../../../api/account-api";
+import { signInUserData } from "../../../api/auth-api";
 import {
   signIn,
-  signOut,
   // setCredentialsPersistance,
 } from "../../../services/auth";
 
@@ -20,11 +19,13 @@ import Layout from "../../../components/Layout";
 
 import { PUBLIC } from "../../../constants/routes";
 import Input from "../../../components/Input/Input";
+import { logIn } from "../../../redux/user/actions";
 
 export default function SignIn() {
   const [loading, setLoading] = useState(false);
   // const [saveCredentials, setSaveCredentials] = useState(false);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const history = useHistory();
   // const credentialsCheckbox = useRef();
 
   // const handleSaveCredentials = () => {
@@ -48,18 +49,14 @@ export default function SignIn() {
       // Set save credentials
       // handleSaveCredentials();
       try {
-        const signInResponse = await signIn(
-          signInState.email,
-          signInState.password,
-        );
-        const token = signInResponse.user.multiFactor.user.accessToken;
-        // await signInUserData(token);
-        console.log(token);
+        await signIn(signInState.email, signInState.password);
+        const dbUser = await signInUserData();
+        const { firstName, lastName, _id: mongoId } = dbUser.data.data;
+        console.log(dbUser);
+        toast("Sign in successful", { type: "success" });
 
-        if (!signInResponse.user.multiFactor.user.emailVerified) {
-          signOut();
-          toast("Please verify your email!", { type: "error" });
-        }
+        dispatch(logIn({ firstName, lastName, isLogged: true, mongoId }));
+        history.push(PUBLIC.HOME);
       } catch (error) {
         setLoading(false);
         toast(error.message, { type: "error" });
@@ -101,7 +98,6 @@ export default function SignIn() {
               id="password"
               name="password"
               placeholder="Password"
-              hasForgotPassword
               handleChange={formik.handleChange}
               handleBlur={formik.handleBlur}
               value={formik.values.password}
@@ -121,7 +117,7 @@ export default function SignIn() {
             </div>
           </form>
           <div className="fnt-caption mt-4 pe-4 text-end">
-            First time in WaveApp?
+            Dont have an account yet?
             <br />
             Please, <Link to={PUBLIC.SIGN_UP}>sign up.</Link>
           </div>

@@ -45,7 +45,7 @@ async function signIn(req, res, next) {
 
     const data = await db.User.findOne(
       { firebaseId },
-      { firstName: 1, lastName: 1, _id: 1 },
+      { firstName: 1, lastName: 1, _id: 1, email: 1 },
     );
 
     res.status(200).send({ message: "Successfully signed in", data: data });

@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { FaSearch } from "react-icons/fa";
 
 import Button from "../Button";
-
-import { PUBLIC } from "../../constants/routes";
 
 import "./Input.scss";
 
@@ -24,7 +21,6 @@ export default function Input({
   hasSubmitIcon,
   errorMessage,
   hasErrorMessage,
-  hasForgotPassword,
   ...props
 }) {
   const [fileName, setFileName] = useState(inputFileText);
@@ -127,31 +123,9 @@ export default function Input({
 
       <div className="row m-0">
         {hasErrorMessage && errorMessage ? (
-          <p
-            className={
-              hasForgotPassword
-                ? `${errorClassNames} col-md-6`
-                : errorClassNames
-            }
-          >
-            {errorMessage}
-          </p>
+          <p className={errorClassNames}>{errorMessage}</p>
         ) : (
-          <p
-            className={
-              hasForgotPassword
-                ? `${errorClassNames} col-md-6`
-                : errorClassNames
-            }
-          >
-            &nbsp;
-          </p>
-        )}
-        {hasForgotPassword && (
-          <p className="col col-12 col-md-6 mt-2 mb-0 fnt-smallest text-end w-100">
-            Forgot your password? Reset it
-            <Link to={PUBLIC.RESET_PASSWORD}>here.</Link>
-          </p>
+          <p className={errorClassNames}>&nbsp;</p>
         )}
       </div>
     </div>

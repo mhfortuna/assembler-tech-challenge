@@ -9,7 +9,7 @@ const {
 const authRouter = Router();
 
 authRouter.post("/register", authRegisterMiddleware, authController.signUp);
-authRouter.get("/authenticate", authFirebaseMiddleware, authController.signIn);
+authRouter.get("/login", authFirebaseMiddleware, authController.signIn);
 
 module.exports = {
   authRouter,
