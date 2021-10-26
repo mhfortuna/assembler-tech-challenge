@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import { Scrollbars } from "react-custom-scrollbars";
 import { onAuthStateChanged } from "./services/auth";
 // import { logIn } from "./redux/user/actions";
 // import { signInUserData } from "./api/account-api";
@@ -49,11 +50,30 @@ function App() {
   // });
 
   return (
-    <>
+    <Scrollbars
+      autoHide
+      renderTrackVertical={({ style, ...props }) => (
+        <div
+          {...props}
+          style={{
+            ...style,
+            zIndex: 1000,
+            position: "absolute",
+            width: "6px",
+            transition: "opacity 200ms ease 0s",
+            opacity: 0,
+            right: "2px",
+            bottom: "2px",
+            top: "2px",
+            borderRadius: "3px",
+          }}
+        />
+      )}
+    >
       {!loading && <RouterComponent />}
 
       <ToastContainer draggable theme="colored" />
-    </>
+    </Scrollbars>
   );
 }
 
