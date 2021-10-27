@@ -9,9 +9,6 @@ const {
   searchRouter,
 } = require("./routes");
 
-// const {
-// } = require("./routes");
-
 const app = express();
 
 app.use(express.json());

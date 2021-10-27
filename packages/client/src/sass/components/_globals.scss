@@ -17,9 +17,6 @@
   input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
   }
-
-  // Guides
-  // outline: 2px solid blue;
 }
 
 input,
@@ -153,7 +150,3 @@ button:active {
 .header-links:visited {
   color: c.$lightColor !important;
 }
-
-// html {
-//   overflow: hidden;
-// }

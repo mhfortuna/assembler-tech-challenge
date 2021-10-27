@@ -7,8 +7,6 @@ import { PUBLIC } from "../../constants/routes";
 import "./ImageCard.scss";
 
 export default function ImageCard({ content }) {
-  // const { _id, url, userId, title } = content;
-  // const { name: categoryName, _id: categoryId } = content.categoryId;
   const userState = useSelector((state) => state.user);
   const handleNotImplemented = () => {
     return toast("This feature is not implemented yet!", { type: "warning" });

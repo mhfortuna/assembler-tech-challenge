@@ -3,21 +3,11 @@ import { useFormik } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-
 import signUpSchema from "./sign-up-schema";
 import { createClient } from "../../../api/auth-api";
-import {
-  signUpWithEmailAndPassword,
-  // signOut,
-  // setCredentialsPersistance,
-} from "../../../services/auth";
-
+import { signUpWithEmailAndPassword } from "../../../services/auth";
 import Button from "../../../components/Button";
 import Layout from "../../../components/Layout";
-// import Spinner from "../../../components/Spinner";
-
-// import { isRegistering } from "../../../redux/user/actions";
-
 import { PUBLIC } from "../../../constants/routes";
 import Input from "../../../components/Input/Input";
 import { logIn } from "../../../redux/user/actions";
@@ -25,7 +15,6 @@ import { logIn } from "../../../redux/user/actions";
 export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  // const [saveCredentials, setSaveCredentials] = useState(false);
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -45,13 +34,10 @@ export default function SignUp() {
           signUpState.email,
           signUpState.password,
         );
-        // const token = signInResponse.user.multiFactor.user.accessToken;
         const dbData = await createClient({
           firstName: signUpState.firstName,
           lastName: signUpState.lastName,
         });
-        // console.log(token);
-        console.log(dbData);
         const { firstName, lastName, _id: mongoId } = dbData.data.data;
         dispatch(logIn({ firstName, lastName, isLogged: true, mongoId }));
         history.push(PUBLIC.HOME);

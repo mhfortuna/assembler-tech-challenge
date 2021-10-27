@@ -5,9 +5,4 @@ export const logIn = (value) => ({
   payload: value,
 });
 
-// export const isRegistering = (value) => ({
-//   type: SET_REGISTER,
-//   payload: value,
-// });
-
 export const logOut = () => ({ type: SET_LOGOUT });

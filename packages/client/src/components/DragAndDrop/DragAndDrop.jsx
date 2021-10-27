@@ -2,7 +2,6 @@ import React, { useMemo, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { FcAddImage } from "react-icons/fc";
-// import AddIcon from "../SVGicons/AddIcon";
 
 export default function DragAndDrop({
   handleChange,

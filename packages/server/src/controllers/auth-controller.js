@@ -1,8 +1,4 @@
-// const fs = require("fs");
-// const path = require("path");
 const db = require("../models");
-// const { promisify } = require("util");
-// const writeFileAsync = promisify(fs.writeFile);
 
 async function signUp(req, res, next) {
   const { firebaseId, email } = req.user;
@@ -12,10 +8,6 @@ async function signUp(req, res, next) {
     const data = await db.User.findOne({ firebaseId }, { _id: 1 });
 
     if (!data) {
-      // Object.keys(req.body).forEach(
-      //   (k) => req.body[k] == "" && delete req.body[k],
-      // );
-
       const newUser = await db.User.create({
         firebaseId,
         firstName,

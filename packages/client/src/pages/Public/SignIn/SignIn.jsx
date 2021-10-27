@@ -3,39 +3,19 @@ import { useFormik } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-
 import signInSchema from "./sign-in-schema";
 import { signInUserData } from "../../../api/auth-api";
-import {
-  signIn,
-  // setCredentialsPersistance,
-} from "../../../services/auth";
-
+import { signIn } from "../../../services/auth";
 import Button from "../../../components/Button";
 import Layout from "../../../components/Layout";
-// import Spinner from "../../../components/Spinner";
-
-// import { isRegistering } from "../../../redux/user/actions";
-
 import { PUBLIC } from "../../../constants/routes";
 import Input from "../../../components/Input/Input";
 import { logIn } from "../../../redux/user/actions";
 
 export default function SignIn() {
   const [loading, setLoading] = useState(false);
-  // const [saveCredentials, setSaveCredentials] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  // const credentialsCheckbox = useRef();
-
-  // const handleSaveCredentials = () => {
-  //   if (credentialsCheckbox.current.checked) {
-  //     setSaveCredentials(true);
-  //   } else {
-  //     setSaveCredentials(false);
-  //   }
-  //   setCredentialsPersistance(credentialsCheckbox);
-  // };
 
   const formik = useFormik({
     initialValues: {
@@ -46,13 +26,10 @@ export default function SignIn() {
     onSubmit: async (signInState) => {
       setLoading(true);
 
-      // Set save credentials
-      // handleSaveCredentials();
       try {
         await signIn(signInState.email, signInState.password);
         const dbUser = await signInUserData();
         const { firstName, lastName, _id: mongoId } = dbUser.data.data;
-        console.log(dbUser);
         toast("Sign in successful", { type: "success" });
 
         dispatch(logIn({ firstName, lastName, isLogged: true, mongoId }));
@@ -67,14 +44,6 @@ export default function SignIn() {
   return (
     <Layout>
       <div className="row p-0 m-0 col col-12 pb-5 pb-sm-0 justify-content-center">
-        {/* {loading ? (
-          <div className="col col-12 col-lg-6">
-            <Spinner />
-          </div>
-        ) : (
-          <div className="col col-12 col-lg-6">Sign In</div>
-        )} */}
-
         <div className="col col-12 col-lg-6">
           <h1 className="fnt-page-title mb-5">Sign in:</h1>
           <form onSubmit={formik.handleSubmit} className="row">

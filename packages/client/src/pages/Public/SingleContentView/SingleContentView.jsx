@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouteMatch, useHistory, Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
 import { getContentById } from "../../../api/content-api";
 import Layout from "../../../components/Layout";
 import Spinner from "../../../components/Spinner";
@@ -11,7 +10,6 @@ import { capitalizeFirstLetter } from "../../../utils/stringManipulation";
 
 export default function SingleContentView() {
   const history = useHistory();
-  // const userState = useSelector((state) => state.user);
   const [contentData, setContentData] = useState({ data: [], loaded: false });
   const { contentId } = useRouteMatch(`${PUBLIC.CONTENT}/:contentId`).params;
 

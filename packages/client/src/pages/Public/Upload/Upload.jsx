@@ -64,7 +64,6 @@ export default function Upload() {
         const uploadedURL = hasDropped
           ? await uploadFileFirebase(uploadState.image)
           : uploadState.externalImageUrl;
-        // if (hasDropped) const uploadedURL = await uploadFileFirebase(uploadState.image);
 
         await addContent({
           title: uploadState.title,

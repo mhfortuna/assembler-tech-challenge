@@ -12,7 +12,6 @@ import RouterComponent from "./components/Router";
 function App() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  // const userState = useSelector((state) => state.user);
 
   async function handleExistingUser() {
     const dbUser = (await signInUserData()).data.data;
