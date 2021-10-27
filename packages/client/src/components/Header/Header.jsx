@@ -29,11 +29,106 @@ function Header() {
     <header className="p-3 text-white clr-primary ">
       <div className="container">
         <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li>Prueba 1</li>
-            <li>Pricing</li>
-            <li>FAQs</li>
-            <li>About</li>
+          <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 gx-2">
+            <li>
+              <Link to={PUBLIC.HOME} className="p-2 secondary-link">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to={PUBLIC.UPLOAD} className="p-2 secondary-link">
+                Upload
+              </Link>
+            </li>
+            <li className="px-2">
+              <div className="dropdown dropend">
+                <button
+                  className="m-0 text-end fnt-light dropdown-toggle"
+                  type="button"
+                  id="contextCategoryMenu"
+                  data-bs-toggle="dropdown"
+                >
+                  Categories
+                </button>
+                <ul
+                  className="dropdown-menu  p-1"
+                  aria-labelledby="contextCategoryMenu"
+                >
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/sports`}
+                    >
+                      Sports
+                    </Link>
+                  </li>
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/entertainment`}
+                    >
+                      Entertainment
+                    </Link>
+                  </li>
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/reactions`}
+                    >
+                      Reactions
+                    </Link>
+                  </li>
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/gaming`}
+                    >
+                      Gaming
+                    </Link>
+                  </li>
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/meme`}
+                    >
+                      Meme
+                    </Link>
+                  </li>
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/emotions`}
+                    >
+                      Emotions
+                    </Link>
+                  </li>
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/action`}
+                    >
+                      Action
+                    </Link>
+                  </li>
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/food`}
+                    >
+                      Food
+                    </Link>
+                  </li>
+                  <li className="nav-link">
+                    <Link
+                      className="secondary-link"
+                      to={`${PUBLIC.CATEGORY}/animals`}
+                    >
+                      Animals
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </li>
           </ul>
 
           <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">

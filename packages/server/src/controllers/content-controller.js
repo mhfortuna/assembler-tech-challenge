@@ -1,5 +1,8 @@
 const db = require("../models");
-const { fetchPopularGifs } = require("../services/giphy/giphy-api");
+const {
+  fetchPopularGifs,
+  fetchGifsByCategory,
+} = require("../services/giphy/giphy-api");
 
 async function get(req, res, next) {
   try {
@@ -50,6 +53,43 @@ async function getById(req, res, next) {
   }
 }
 
+async function getByCategoryName(req, res, next) {
+  try {
+    const { categoryName } = req.params;
+    const { page = 0, limit = 10 } = req.query;
+    const { _id: categoryId } = await db.Category.findOne(
+      { name: categoryName },
+      { _id: 1 },
+    );
+
+    let data = await db.Content.find(
+      { categoryId },
+      { type: 1, url: 1, userId: 1, categoryId: 1, title: 1 },
+    )
+      .populate({ path: "categoryId", select: "name" })
+      .populate({ path: "userId", select: "firstName lastName" })
+      .skip(Number(page) * Number(limit))
+      .limit(Number(limit))
+      .lean();
+    data = data.map((obj) => ({ ...obj, isGiphy: false }));
+
+    if (data.length < Number(limit)) {
+      let {
+        data: { data: giphyArray },
+      } = await fetchGifsByCategory(categoryName, Number(limit) - data.length);
+      giphyArray = giphyArray.map((obj) => ({ ...obj, isGiphy: true }));
+
+      data = [...data, ...giphyArray];
+    }
+
+    res.status(200).send({ data: data });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: error.message });
+    next(error);
+  }
+}
+
 async function add(req, res, next) {
   try {
     console.log(req.body);
@@ -77,4 +117,5 @@ module.exports = {
   get,
   add,
   getById,
+  getByCategoryName,
 };

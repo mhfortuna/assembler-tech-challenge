@@ -13,6 +13,17 @@ export async function getContent(limit = 5, page = 0, api = makeContentApi()) {
   return api.get(`?page=${page}&limit=${limit}`);
 }
 
+export async function getContentByCategoryId(
+  categoryName,
+  limit = 5,
+  page = 0,
+  api = makeContentApi(),
+) {
+  return api.get(
+    `${API.CATEGORIES}/${categoryName}?page=${page}&limit=${limit}`,
+  );
+}
+
 export async function getContentById(contentId, api = makeContentApi()) {
   return api.get(`/${contentId}`);
 }

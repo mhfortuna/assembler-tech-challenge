@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <Layout>
       <div className="container">
-        <h2 className="text-center mb-4 fnt-uppercase">Most popular content</h2>
+        <h2 className="text-center mb-4 fnt-uppercase">Most recent content</h2>
       </div>
       {contentData.loaded ? (
         <ImageList contentArray={contentData.data} />

@@ -60,19 +60,16 @@ select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
 }
 
-a {
-  color: c.$secondaryColor;
-}
-
 a,
 a:visited {
+  color: c.$primaryColor;
   text-decoration: none;
   font-weight: bold;
   transition: 0.3s;
 }
-
-a:visited {
-  color: inherit;
+a.secondary-link,
+a.secondary-link:visited {
+  color: c.$lightColor !important;
 }
 
 a:hover {
@@ -80,6 +77,7 @@ a:hover {
   color: inherit;
 }
 
+.nav-link,
 .nav-link:visited {
   color: c.$lightColor;
 }
@@ -100,7 +98,7 @@ button:active {
 // Dropdown items
 .dropdown-menu {
   @extend .dropdown-menu;
-  background-color: c.$secondaryColor;
+  background-color: c.$primaryColor;
 }
 
 .custom-dropdown-item {

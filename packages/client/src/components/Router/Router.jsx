@@ -12,6 +12,7 @@ import SignIn from "../../pages/Public/SignIn";
 import SignUp from "../../pages/Public/SignUp";
 import Upload from "../../pages/Public/Upload";
 import SingleContentView from "../../pages/Public/SingleContentView";
+import Category from "../../pages/Public/Category/Category";
 
 export default function Router() {
   return (
@@ -22,6 +23,9 @@ export default function Router() {
         </Route>
         <Route path={`${PUBLIC.CONTENT}/:contentId`} exact>
           <SingleContentView />
+        </Route>
+        <Route path={`${PUBLIC.CATEGORY}/:categoryId`} exact>
+          <Category />
         </Route>
         <OnlyPublicRoute path={PUBLIC.SIGN_UP} exact>
           <SignUp />
