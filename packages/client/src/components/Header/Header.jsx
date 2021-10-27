@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { PUBLIC } from "../../constants/routes";
-// import { PUBLIC } from "../../constants/routes";
 import { logOut } from "../../redux/user/actions";
 import { signOut } from "../../services/auth";
 import Button from "../Button";

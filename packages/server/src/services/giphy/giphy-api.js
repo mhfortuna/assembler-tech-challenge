@@ -6,6 +6,7 @@ const API_ROUTES = {
   GIFS: "/gifs",
   TRENDING: "/trending",
   CHANNELS: "/channels",
+  SEARCH: "/search",
 };
 
 function makeGiphyApi() {
@@ -42,7 +43,14 @@ function fetchGifsByCategory(
   );
 }
 
+function searchGifs(query, limit = 20, offset = 0, api = makeGiphyApi()) {
+  return api.get(
+    `${API_ROUTES.GIFS}${API_ROUTES.SEARCH}?api_key=${config.giphy.apiKey}&q=${query}&limit=${limit}&offset=${offset}&rating=g&bundle=messaging_non_clips`,
+  );
+}
+
 module.exports = {
   fetchPopularGifs,
   fetchGifsByCategory,
+  searchGifs,
 };

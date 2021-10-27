@@ -1,11 +1,12 @@
 const db = require("../models");
+const { searchGifs } = require("../services/giphy/giphy-api");
 
 async function searchContent(req, res, next) {
   try {
     const searchText = req.query?.q;
     const { page = 0, limit = 5 } = req.query;
 
-    const data = await db.Content.find(
+    let data = await db.Content.find(
       {
         title: { $regex: searchText, $options: "i" },
       },
@@ -15,6 +16,16 @@ async function searchContent(req, res, next) {
       .skip(Number(page) * Number(limit))
       .limit(Number(limit))
       .lean();
+    data = data.map((obj) => ({ ...obj, isGiphy: false }));
+
+    if (data.length < Number(limit)) {
+      let {
+        data: { data: giphyArray },
+      } = await searchGifs(searchText, Number(limit) - data.length);
+      giphyArray = giphyArray.map((obj) => ({ ...obj, isGiphy: true }));
+
+      data = [...data, ...giphyArray];
+    }
 
     return res
       .status(200)
