@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { PUBLIC } from "../../constants/routes";
-// import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 // import { PUBLIC } from "../../constants/routes";
 import { logOut } from "../../redux/user/actions";
 import { signOut } from "../../services/auth";
@@ -11,18 +10,31 @@ import Button from "../Button";
 import "./Header.scss";
 
 function Header() {
-  // const location = useLocation();
+  const location = useLocation();
+  const searchInitialState =
+    location.pathname === "/search"
+      ? new URLSearchParams(useLocation().search).get("q")
+      : "";
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const history = useHistory();
-
-  // const navlinkClasses =
-  //   "fnt-caption d-flex justify-content-center align-items-center fnt-light nav-link header-links";
+  const [searchQuery, setSearchQuery] = useState(searchInitialState);
 
   const handleSignOut = async () => {
     dispatch(logOut());
     await signOut();
     history.go(0);
+  };
+
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    if (searchQuery.length > 0)
+      history.push(`${PUBLIC.SEARCH}?q=${searchQuery}`);
+  };
+
+  const handleChange = async (event) => {
+    event.preventDefault();
+    setSearchQuery(event.target.value);
   };
 
   return (
@@ -131,12 +143,17 @@ function Header() {
             </li>
           </ul>
 
-          <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <form
+            className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+            onSubmit={handleSearch}
+          >
             <input
               type="search"
               className="form-control form-control-dark"
               placeholder="Search..."
               aria-label="Search"
+              value={searchQuery}
+              onChange={handleChange}
             />
           </form>
 

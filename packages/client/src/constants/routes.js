@@ -12,6 +12,7 @@ export const PUBLIC = {
   CATEGORY: "/category",
   UPLOAD: "/upload",
   NOT_FOUND: "/not-found",
+  SEARCH: "/search",
 };
 
 // API
