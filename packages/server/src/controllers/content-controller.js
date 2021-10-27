@@ -39,10 +39,12 @@ async function getById(req, res, next) {
       { type: 1, url: 1, userId: 1, categoryId: 1, title: 1 },
     )
       .populate({ path: "categoryId", select: "name" })
+      .populate({ path: "userId", select: "firstName lastName" })
       .lean();
 
     res.status(200).send({ data: data });
   } catch (error) {
+    console.log(error);
     res.status(500).send({ error: error.message });
     next(error);
   }

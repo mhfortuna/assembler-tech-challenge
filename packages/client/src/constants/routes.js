@@ -11,6 +11,7 @@ export const PUBLIC = {
   CONTENT: "/content",
   CATEGORY: "/category",
   UPLOAD: "/upload",
+  NOT_FOUND: "/not-found",
 };
 
 // API

@@ -24,16 +24,21 @@ export default function ImageCard({ content }) {
 
           <div className="d-flex justify-content-between align-items-center">
             <div className="btn-group">
-              <Link
-                to={
-                  content.isGiphy
-                    ? content.url
-                    : `${PUBLIC.CONTENT}/${content._id}`
-                }
-                className="btn btn-sm btn-outline-secondary"
-              >
-                View
-              </Link>
+              {content.isGiphy ? (
+                <a
+                  href={content.url}
+                  className="btn btn-sm btn-outline-secondary"
+                >
+                  View
+                </a>
+              ) : (
+                <Link
+                  to={`${PUBLIC.CONTENT}/${content._id}`}
+                  className="btn btn-sm btn-outline-secondary"
+                >
+                  View
+                </Link>
+              )}
               {content.isGiphy === false &&
                 userState.mongoId === content.userId && (
                   <button
