@@ -4,8 +4,6 @@ const { fetchPopularGifs } = require("../services/giphy/giphy-api");
 async function get(req, res, next) {
   try {
     const { page = 0, limit = 10 } = req.query;
-    // This should be used to get most popular gifs
-    // const { firebaseId } = req.user;
 
     let data = await db.Content.find(
       {},
@@ -16,18 +14,32 @@ async function get(req, res, next) {
       .limit(Number(limit))
       .lean();
     data = data.map((obj) => ({ ...obj, isGiphy: false }));
-    // console.log(data);
 
-    // console.log("data", data.length);
     if (data.length < Number(limit)) {
       let {
         data: { data: giphyArray },
       } = await fetchPopularGifs(Number(limit) - data.length);
       giphyArray = giphyArray.map((obj) => ({ ...obj, isGiphy: true }));
-      // console.log(giphyArray);
 
       data = [...data, ...giphyArray];
     }
+
+    res.status(200).send({ data: data });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+    next(error);
+  }
+}
+
+async function getById(req, res, next) {
+  try {
+    const { contentId } = req.params;
+    const data = await db.Content.findOne(
+      { _id: contentId },
+      { type: 1, url: 1, userId: 1, categoryId: 1, title: 1 },
+    )
+      .populate({ path: "categoryId", select: "name" })
+      .lean();
 
     res.status(200).send({ data: data });
   } catch (error) {
@@ -62,4 +74,5 @@ async function add(req, res, next) {
 module.exports = {
   get,
   add,
+  getById,
 };

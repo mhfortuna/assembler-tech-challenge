@@ -13,6 +13,10 @@ export async function getContent(limit = 5, page = 0, api = makeContentApi()) {
   return api.get(`?page=${page}&limit=${limit}`);
 }
 
+export async function getContentById(contentId, api = makeContentApi()) {
+  return api.get(`/${contentId}`);
+}
+
 export async function addContent(body = {}, api = makeContentApi()) {
   const token = await getCurrentUserToken();
 
