@@ -29,7 +29,7 @@ export default function DragAndDrop({
     borderColor: "#eeeeee",
     borderStyle: "dashed",
     backgroundColor: "rgba(250, 250, 250, 0.2)",
-    color: "#bdbdbd",
+    color: "#011627",
     outline: "none",
     transition: "border .24s ease-in-out",
   };
@@ -101,7 +101,7 @@ export default function DragAndDrop({
             isNegative
             onClick={(e) => e.preventDefault()}
           /> */}
-          <p className="fnt-white">{files}</p>
+          <p className="">{files}</p>
         </div>
       )}
     </div>

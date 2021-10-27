@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import * as Yup from "yup";
 import Layout from "../../../components/Layout";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
@@ -19,6 +20,7 @@ import { addContent } from "../../../api/content-api";
 export default function Upload() {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [hasDropped, setHasDropped] = useState(false);
   const history = useHistory();
 
   const fetchCategories = async () => {
@@ -28,12 +30,26 @@ export default function Upload() {
     setCategories(data);
   };
 
+  const validURL = (str) => {
+    const pattern = new RegExp(
+      "^(https?:\\/\\/)?" + // protocol
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+        "(\\#[-a-z\\d_]*)?$",
+      "i",
+    ); // fragment locator
+    return !!pattern.test(str);
+  };
+
   const formik = useFormik({
     initialValues: {
       title: "",
       type: "gif",
       category: "",
       image: "",
+      externalImageUrl: "",
     },
     validationSchema: uploadSchema,
     onSubmit: async (uploadState) => {
@@ -41,14 +57,14 @@ export default function Upload() {
       setIsLoading(true);
 
       try {
-        if (!uploadState.image)
+        if (!uploadState.image && !validURL(uploadState.externalImageUrl)) {
+          setIsLoading(false);
           return toast("Choose a file!", { type: "error" });
-        const uploadedURL = await uploadFileFirebase(uploadState.image);
-        // const formData = new FormData();
-        // formData.append("title", uploadState.title);
-        // formData.append("type", uploadState.type);
-        // formData.append("categoryId", uploadState.category);
-        // formData.append("imageUrl", uploadedURL);
+        }
+        const uploadedURL = hasDropped
+          ? await uploadFileFirebase(uploadState.image)
+          : uploadState.externalImageUrl;
+        // if (hasDropped) const uploadedURL = await uploadFileFirebase(uploadState.image);
 
         await addContent({
           title: uploadState.title,
@@ -68,6 +84,7 @@ export default function Upload() {
 
   const handleDrop = (file) => {
     formik.setFieldValue("image", file[0]);
+    setHasDropped(true);
   };
 
   useEffect(() => {
@@ -79,22 +96,45 @@ export default function Upload() {
       <div className="container">
         <h2 className="text-center mb-4 fnt-uppercase">Upload new content</h2>
         <form onSubmit={formik.handleSubmit} className="row">
+          <div className="row">
+            <div className="col-6">
+              <Input
+                classNames="col-12"
+                label="Title"
+                id="title"
+                type="text"
+                placeholder="Title"
+                handleChange={formik.handleChange}
+                handleBlur={formik.handleBlur}
+                value={formik.values.title}
+                errorMessage={formik.errors.title}
+                hasErrorMessage={formik.touched.title}
+                disabled={isLoading}
+              />
+              <p className="ms-1">
+                You can paste a link at the bottom or drag and drop a file on
+                the right!
+              </p>
+            </div>
+            <div className="col-6">
+              <DragAndDrop
+                dropText="Drop here the image file"
+                handleChange={handleDrop}
+              />
+            </div>
+          </div>
           <Input
-            classNames="col-12 col-md-6"
-            label="Title"
-            id="title"
+            classNames="col-12"
+            label="External image URL"
+            id="externalImageUrl"
             type="text"
             placeholder="Title"
             handleChange={formik.handleChange}
             handleBlur={formik.handleBlur}
-            value={formik.values.title}
-            errorMessage={formik.errors.title}
-            hasErrorMessage={formik.touched.title}
-            disabled={isLoading}
-          />
-          <DragAndDrop
-            dropText="Drop here the image file"
-            handleChange={handleDrop}
+            value={formik.values.externalImageUrl}
+            errorMessage={formik.errors.externalImageUrl}
+            hasErrorMessage={formik.touched.externalImageUrl}
+            disabled={hasDropped || isLoading}
           />
           <Select
             classNames="col-12 col-lg-6"
