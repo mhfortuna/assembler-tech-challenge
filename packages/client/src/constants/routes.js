@@ -23,4 +23,5 @@ export const API = {
   LOGIN: "/login",
   CONTENT: "/content",
   CATEGORIES: "/category",
+  SEARCH: "/search",
 };
