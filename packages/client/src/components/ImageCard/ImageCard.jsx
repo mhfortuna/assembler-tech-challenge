@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { PUBLIC } from "../../constants/routes";
 
 import "./ImageCard.scss";
@@ -9,6 +10,9 @@ export default function ImageCard({ content }) {
   // const { _id, url, userId, title } = content;
   // const { name: categoryName, _id: categoryId } = content.categoryId;
   const userState = useSelector((state) => state.user);
+  const handleNotImplemented = () => {
+    return toast("This feature is not implemented yet!", { type: "warning" });
+  };
   return (
     <div className="col">
       <div className="card shadow-sm">
@@ -42,7 +46,7 @@ export default function ImageCard({ content }) {
               {content.isGiphy === false &&
                 userState.mongoId === content.userId && (
                   <button
-                    // TODO: action on edit
+                    onClick={handleNotImplemented}
                     type="button"
                     className="btn btn-sm btn-outline-secondary"
                   >
